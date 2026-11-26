@@ -3,43 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Consultor Médico - Agente IA</title>
+  <title>Conversor de Divisas</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-  <div class="app-container">
-    <header class="app-header">
-      <div class="avatar">🩺</div>
-      <div class="header-info">
-        <h1>Consultor Médico</h1>
-        <p><span class="status-dot"></span> Asistente para trámites y consultas específicas</p>
+  <div class="dashboard-wrapper">
+    <header class="navbar">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <h1>FX Converter</h1>
+      </div>
+      <div class="live-indicator">
+        <span class="pulse"></span> Tasas de referencia
       </div>
     </header>
 
-    <main class="zona-de-chat" id="zonaDeChat">
-      <div class="message bot-message">
-        <div class="message-content">
-          👋 ¡Hola! Soy tu <strong>Consultor Médico</strong>. ¿En qué trámite o consulta médica te puedo ayudar hoy?
+    <section class="converter-panel">
+      <div class="cards-grid">
+        <div class="fx-card">
+          <div class="fx-card-header">
+            <label for="baseAmount">Monto a convertir</label>
+            <select id="baseCurrency" class="currency-select">
+              <option value="USD" selected>🇺🇸 USD</option>
+              <option value="EUR">🇪🇺 EUR</option>
+              <option value="ARS">🇦🇷 ARS</option>
+              <option value="GBP">🇬🇧 GBP</option>
+              <option value="MXN">🇲🇽 MXN</option>
+              <option value="BRL">🇧🇷 BRL</option>
+              <option value="JPY">🇯🇵 JPY</option>
+            </select>
+          </div>
+          <input type="number" id="baseAmount" value="100" min="0" step="any">
+          <span class="currency-name" id="baseName">Dólar Estadounidense</span>
+        </div>
+
+        <button type="button" id="swapCurrencies" class="swap-btn" title="Invertir monedas">⇄</button>
+
+        <div class="fx-card">
+          <div class="fx-card-header">
+            <label for="targetAmount">Convertido a</label>
+            <select id="targetCurrency" class="currency-select">
+              <option value="USD">🇺🇸 USD</option>
+              <option value="EUR">🇪🇺 EUR</option>
+              <option value="ARS" selected>🇦🇷 ARS</option>
+              <option value="GBP">🇬🇧 GBP</option>
+              <option value="MXN">🇲🇽 MXN</option>
+              <option value="BRL">🇧🇷 BRL</option>
+              <option value="JPY">🇯🇵 JPY</option>
+            </select>
+          </div>
+          <input type="text" id="targetAmount" readonly>
+          <span class="currency-name" id="targetName">Peso Argentino</span>
         </div>
       </div>
-    </main>
 
-    <footer class="zona-de-escritura">
-      <form id="chatForm" class="input-form">
-        <textarea 
-          id="userInput" 
-          placeholder="Escribí tu consulta sobre trámites médicos aquí..." 
-          rows="1" 
-          required></textarea>
-        <button type="submit" id="sendBtn" title="Enviar mensaje">
-          <svg class="send-icon" viewBox="0 0 24 24">
-            <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
-          </svg>
-        </button>
-      </form>
-    </footer>
+      <div class="rate-banner">
+        <span id="unitRateDisplay">1 USD = 1015.0000 ARS</span>
+        <span class="update-tag">Cotización base USD</span>
+      </div>
+    </section>
+
+    <section class="analytics-grid">
+      <div class="panel-box">
+        <div class="panel-header">
+          <h3>Tendencia últimos 7 días</h3>
+          <span class="trend-badge">+1.5%</span>
+        </div>
+        <div class="chart-area">
+          <canvas id="fxTrendChart"></canvas>
+        </div>
+      </div>
+
+      <div class="panel-box">
+        <div class="panel-header">
+          <h3>Equivalencias para <span id="tableBaseLabel">100 USD</span></h3>
+        </div>
+        <table class="rates-table">
+          <thead>
+            <tr>
+              <th>Moneda</th>
+              <th>Tasa</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="quickRatesBody"></tbody>
+        </table>
+      </div>
+    </section>
   </div>
 
   <script src="script.js"></script>
