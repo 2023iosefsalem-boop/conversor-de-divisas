@@ -3,108 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FX Studio - Conversor de Divisas</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Consultor Médico - Agente IA</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="dashboard-wrapper">
-    <!-- Barra Superior -->
-    <nav class="navbar">
-      <div class="brand">
-        <span class="brand-dot"></span>
-        <h1>FX Studio</h1>
-      </div>
-      <div class="live-indicator">
-        <span class="pulse"></span> Mercado Activo
-      </div>
-    </nav>
 
-    <!-- Sección Principal de Conversión -->
-    <section class="converter-panel">
-      <div class="cards-grid">
-        <!-- Tarjeta Origen -->
-        <div class="fx-card">
-          <div class="fx-card-header">
-            <label for="baseAmount">Envías</label>
-            <select id="baseCurrency" class="currency-select">
-              <option value="USD" selected>🇺🇸 USD</option>
-              <option value="EUR">🇪🇺 EUR</option>
-              <option value="ARS">🇦🇷 ARS</option>
-              <option value="GBP">🇬🇧 GBP</option>
-              <option value="MXN">🇲🇽 MXN</option>
-              <option value="BRL">🇧🇷 BRL</option>
-              <option value="JPY">🇯🇵 JPY</option>
-            </select>
-          </div>
-          <input type="number" id="baseAmount" value="1000" min="0" step="any" placeholder="0.00">
-          <span class="currency-name" id="baseName">Dólar Estadounidense</span>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="avatar">🩺</div>
+      <div class="header-info">
+        <h1>Consultor Médico</h1>
+        <p><span class="status-dot"></span> Asistente para trámites y consultas específicas</p>
+      </div>
+    </header>
+
+    <main class="zona-de-chat" id="zonaDeChat">
+      <div class="message bot-message">
+        <div class="message-content">
+          👋 ¡Hola! Soy tu <strong>Consultor Médico</strong>. ¿En qué trámite o consulta médica te puedo ayudar hoy?
         </div>
+      </div>
+    </main>
 
-        <!-- Botón Central de Intercambio -->
-        <button id="swapCurrencies" class="swap-btn" title="Invertir divisas">
-          ⇄
+    <footer class="zona-de-escritura">
+      <form id="chatForm" class="input-form">
+        <textarea 
+          id="userInput" 
+          placeholder="Escribí tu consulta sobre trámites médicos aquí..." 
+          rows="1" 
+          required></textarea>
+        <button type="submit" id="sendBtn" title="Enviar mensaje">
+          <svg class="send-icon" viewBox="0 0 24 24">
+            <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
+          </svg>
         </button>
-
-        <!-- Tarjeta Destino -->
-        <div class="fx-card">
-          <div class="fx-card-header">
-            <label for="targetAmount">Recibes</label>
-            <select id="targetCurrency" class="currency-select">
-              <option value="USD">🇺🇸 USD</option>
-              <option value="EUR" selected>🇪🇺 EUR</option>
-              <option value="ARS">🇦🇷 ARS</option>
-              <option value="GBP">🇬🇧 GBP</option>
-              <option value="MXN">🇲🇽 MXN</option>
-              <option value="BRL">🇧🇷 BRL</option>
-              <option value="JPY">🇯🇵 JPY</option>
-            </select>
-          </div>
-          <input type="text" id="targetAmount" readonly placeholder="0.00">
-          <span class="currency-name" id="targetName">Euro</span>
-        </div>
-      </div>
-
-      <!-- Pie de Conversión -->
-      <div class="rate-banner">
-        <span id="unitRateDisplay">1 USD = 0.9200 EUR</span>
-        <span class="update-tag">Sin comisiones ocultas</span>
-      </div>
-    </section>
-
-    <!-- Sección Inferior: Gráfico + Tabla de Tasas -->
-    <div class="analytics-grid">
-      <!-- Gráfico de Tendencia -->
-      <section class="panel-box">
-        <div class="panel-header">
-          <h3>Evolución (Últimos 7 días)</h3>
-          <span class="trend-badge positive" id="trendPercent">+1.24%</span>
-        </div>
-        <div class="chart-area">
-          <canvas id="fxTrendChart"></canvas>
-        </div>
-      </section>
-
-      <!-- Tabla de Referencia Rápida -->
-      <section class="panel-box">
-        <div class="panel-header">
-          <h3>Equivalencias Rápidas</h3>
-        </div>
-        <table class="rates-table">
-          <thead>
-            <tr>
-              <th>Divisa</th>
-              <th>Tasa</th>
-              <th>Por <span id="tableBaseLabel">1,000 USD</span></th>
-            </tr>
-          </thead>
-          <tbody id="quickRatesBody">
-            <!-- Se llena dinámicamente con JS -->
-          </tbody>
-        </table>
-      </section>
-    </div>
+      </form>
+    </footer>
   </div>
 
   <script src="script.js"></script>
